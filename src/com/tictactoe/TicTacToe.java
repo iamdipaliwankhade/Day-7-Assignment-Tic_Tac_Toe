@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class TicTacToe {
 
 	static char[] board = new char[10];
+	static char turn;
 
 	/**
 	 * Creating the game board
@@ -45,7 +46,6 @@ public class TicTacToe {
 	 * Displaying the tictactoe game board
 	 */
 	public static void showBoard() {
-
 		System.out.println("| " + board[1] + " | " + board[2] + " | " + board[3] + " |");
 		System.out.println("|-----------|");
 		System.out.println("| " + board[4] + " | " + board[5] + " | " + board[6] + " |");
@@ -54,11 +54,21 @@ public class TicTacToe {
 
 	}
 
+	/**
+	 * user is going to make a move to the desired location
+	 */
+	public static void checkMove() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter your slot number from 1 to 9: ");
+		int userInput = sc.nextInt();
+	}
+
 	public static void main(String args[]) {
 
 		createBoard();
 		chooseLetter();
 		showBoard();
+		checkMove();
 
 	}
 }
