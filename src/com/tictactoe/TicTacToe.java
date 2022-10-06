@@ -63,12 +63,39 @@ public class TicTacToe {
 		int userInput = sc.nextInt();
 	}
 
+	/**
+	 * checking for the free spaces in the board
+	 */
+	public static void madeMove() {
+		Scanner sc = new Scanner(System.in);
+		while (true) {
+			System.out.println("Enter your slot number from 1 to 9: ");
+			int userInput = sc.nextInt();
+			if (!(userInput > 0) && (userInput < 10)) {
+				System.out.println("Invalid move, Re-enter the slot number:");
+				continue;
+			} else if (board[userInput] == ' ') {
+				board[userInput] = turn;
+				showBoard();
+				if (turn == 'X') {
+					turn = 'O';
+				} else {
+					turn = 'X';
+				}
+			} else {
+				System.out.println("Re-enter the slot number: ");
+				showBoard();
+				continue;
+			}
+		}
+	}
+
 	public static void main(String args[]) {
 
 		createBoard();
 		chooseLetter();
 		showBoard();
-		checkMove();
+		madeMove();
 
 	}
 }
