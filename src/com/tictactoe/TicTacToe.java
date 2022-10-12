@@ -19,7 +19,7 @@ public class TicTacToe {
 	 */
 	private static void createBoard() {
 		System.out.println("TicTacToe game board");
-		for (int i = 1; i < board.length; i++) {
+		for (int i = 1; i < 10; i++) {
 			board[i] = ' ';
 		}
 	}
@@ -32,10 +32,10 @@ public class TicTacToe {
 		System.out.println("Enter the character X or O to choose the turn:");
 		char turn = sc.next().charAt(0);
 		if (turn == 'X' || turn == 'x') {
-			System.out.println("player's turn to play the game");
+			System.out.println("Computer's turn to play the game");
 			turn = 'O';
 		} else if (turn == 'O' || turn == 'o') {
-			System.out.println("computer's turn to play the game");
+			System.out.println("Player's turn to play the game");
 			turn = 'X';
 		} else {
 			System.out.println("Invalid input");
@@ -47,21 +47,27 @@ public class TicTacToe {
 	 * Displaying the tictactoe game board
 	 */
 	private static void showBoard() {
-		for (int i = 1; i < board.length; i++) {
+		for (int i = 1; i < 10; i++) {
 			board[i] = (char) i;
 		}
-		System.out.println("_" + board[1] + "_|_" + board[2] + "_|_" + board[3] + "_");
-		System.out.println("_" + board[4] + "_|_" + board[5] + "_|_" + board[6] + "_");
-		System.out.println(" " + board[7] + " | " + board[8] + " | " + board[9] + " ");
+		System.out.println("| " + board[1] + "_|_" + board[2] + "_|_" + board[3] + " |");
+		System.out.println("| " + board[4] + "_|_" + board[5] + "_|_" + board[6] + " |");
+		System.out.println("| " + board[7] + " | " + board[8] + " | " + board[9] + " |");
 
 	}
 
 	/**
 	 * user has already made a move
 	 */
-	private static void madeMove() {
+	private static void madeMove(boolean firstPlayer) {
 		Scanner sc = new Scanner(System.in);
-		while (true) {
+		String winner = null;
+		if (firstPlayer == true) {
+			turn = 'X';
+		} else {
+			turn = 'O';
+		}
+		while (winner == null) {
 			System.out.println("Enter your slot number from 1 to 9: ");
 			int move = sc.nextInt();
 			if (!(move > 0) && (move < 10)) {
@@ -75,11 +81,19 @@ public class TicTacToe {
 				} else {
 					turn = 'X';
 				}
+				winner = checkWiningCombinations();
+
 			} else {
-				System.out.println("Re-enter the slot number: ");
+				System.out.println("Slot is taken already; Re-enter the slot number: ");
 				showBoard();
 				continue;
 			}
+		}
+
+		if (winner.equalsIgnoreCase("tie")) {
+			System.out.println("It's a tie| Thanks for playing");
+		} else {
+			System.out.println("Congratulations! " + winner + " has won.");
 		}
 	}
 
@@ -91,12 +105,65 @@ public class TicTacToe {
 		return random.nextBoolean();
 	}
 
+	/**
+	 * Checking after move the winner or the tie or change in turn
+	 */
+	private static String checkWiningCombinations() {
+		for (int a = 1; a < 9; a++) {
+			StringBuilder sb = new StringBuilder();
+			String line;
+
+			switch (a) {
+			case 1:
+				line = Character.toString(board[1] + board[2] + board[3]);
+				break;
+			case 2:
+				line = Character.toString(board[4] + board[5] + board[6]);
+				break;
+			case 3:
+				line = Character.toString(board[7] + board[8] + board[9]);
+				break;
+			case 4:
+				line = Character.toString(board[1] + board[4] + board[7]);
+				break;
+			case 5:
+				line = Character.toString(board[2] + board[5] + board[8]);
+				break;
+			case 6:
+				line = Character.toString(board[3] + board[6] + board[9]);
+				break;
+			case 7:
+				line = Character.toString(board[1] + board[5] + board[9]);
+				break;
+			case 8:
+				line = Character.toString(board[3] + board[5] + board[7]);
+				System.out.println("String is: " + line);
+				break;
+
+			}
+			if (sb.equals("XXX")) {
+				return "Computer";
+			} else if (sb.equals("OOO")) {
+				return "Player";
+			}
+		}
+		for (int i = 1; i < 10; i++) {
+			if (board[i] == ' ') {
+				break;
+			} else if (i == 9)
+				return "tie";
+
+		}
+		System.out.println(turn + "turn; enter a slot number to place the " + turn + " in: ");
+		return null;
+
+	}
+
 	public static void main(String args[]) {
 
 		createBoard();
 		chooseLetter();
 		showBoard();
-		madeMove();
-
+		madeMove(true);
 	}
 }
