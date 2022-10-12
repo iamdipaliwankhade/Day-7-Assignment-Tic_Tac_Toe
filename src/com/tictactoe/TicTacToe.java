@@ -159,6 +159,13 @@ public class TicTacToe {
 
 	}
 
+	/**
+	 * checking to movve for win or tie or change the turn
+	 */
+	private static void computerCheckToWin() {
+		board[turn] = 'X';
+	}
+
 	public static void main(String args[]) {
 
 		createBoard();
