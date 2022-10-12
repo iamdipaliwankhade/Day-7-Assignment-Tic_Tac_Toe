@@ -160,10 +160,134 @@ public class TicTacToe {
 	}
 
 	/**
-	 * checking to movve for win or tie or change the turn
+	 * checking to move for win or tie or change the turn
 	 */
 	private static void computerCheckToWin() {
 		board[turn] = 'X';
+	}
+
+	/**
+	 * @param userInput is taking the arguments of the row, column and diagonals
+	 *                  Checking that opponent can win then can block it's win
+	 */
+	private static int blockOpponent(int userInput) {
+		for (int a = 1; a < 9; a++) {
+			String str;
+			switch (a) {
+			case 1: {
+				str = Character.toString(board[1]) + Character.toString(board[2]) + Character.toString(board[3]);
+				if (str == "XX") {
+					for (int i = 1; i <= 3; i++) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							userInput = i;
+							return userInput;
+						}
+					}
+				}
+				break;
+			}
+
+			case 2: {
+				str = Character.toString(board[4]) + Character.toString(board[5]) + Character.toString(board[6]);
+				if (str == "XX") {
+					for (int i = 4; i <= 6; i++) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							userInput = i;
+							return userInput;
+						}
+					}
+				}
+				break;
+			}
+
+			case 3: {
+				str = Character.toString(board[7]) + Character.toString(board[8]) + Character.toString(board[9]);
+				if (str == "XX") {
+					for (int i = 7; i < 9; i++) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							userInput = i;
+							return userInput;
+						}
+					}
+				}
+				break;
+			}
+
+			case 4: {
+				str = Character.toString(board[1]) + Character.toString(board[4]) + Character.toString(board[7]);
+				if (str == "XX") {
+					for (int i = 1; i <= 7; i += 3) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							userInput = i;
+							return userInput;
+						}
+					}
+				}
+				break;
+			}
+
+			case 5: {
+				str = Character.toString(board[2]) + Character.toString(board[5]) + Character.toString(board[8]);
+				if (str == "XX") {
+					for (int i = 2; i <= 8; i += 3) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							userInput = i;
+							return userInput;
+						}
+					}
+				}
+				break;
+			}
+
+			case 6: {
+				str = Character.toString(board[3]) + Character.toString(board[6]) + Character.toString(board[9]);
+				if (str == "XX") {
+					for (int i = 3; i <= 9; i += 3) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							userInput = i;
+							return userInput;
+						}
+					}
+				}
+				break;
+			}
+
+			case 7: {
+				str = Character.toString(board[1]) + Character.toString(board[5]) + Character.toString(board[9]);
+				if (str == "XX") {
+					for (int i = 1; i <= 9; i += 4) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							userInput = i;
+							return userInput;
+						}
+					}
+				}
+				break;
+			}
+
+			case 8: {
+				str = Character.toString(board[3]) + Character.toString(board[5]) + Character.toString(board[7]);
+				if (str == "XX") {
+					for (int i = 3; i <= 7; i += 2) {
+						if (board[i] == ' ') {
+							turn = 'O';
+							userInput = i;
+							return userInput;
+						}
+					}
+				}
+				break;
+			}
+			}
+		}
+		return userInput;
 	}
 
 	public static void main(String args[]) {
